@@ -15,4 +15,5 @@ func registerApplicationEndpoints(appEndpoints *gin.RouterGroup) {
 	appEndpoints.GET("/ping", handler.PingHandler)
 	appEndpoints.GET("/items", handler.GetItems)
 	appEndpoints.GET("/items/:item_id", handler.GetItemById)
+	appEndpoints.POST("/items", handler.PostItem)
 }

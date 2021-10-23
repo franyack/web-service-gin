@@ -18,4 +18,5 @@ func NewItemsRepository() ItemsRepository {
 type ItemsRepository interface {
 	GetItems() ([]*domain.Item, error)
 	GetItemById(itemID string) (*domain.Item, error)
+	AddItem(item *domain.Item) error
 }
