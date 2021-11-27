@@ -12,7 +12,6 @@ func registerHealthyCheckEndpoints(diagnostic *gin.RouterGroup) {
 
 // In this func you can register the application's endpoints.
 func registerApplicationEndpoints(appEndpoints *gin.RouterGroup) {
-	appEndpoints.GET("/ping", handler.PingHandler)
 	appEndpoints.GET("/items", handler.GetItems)
 	appEndpoints.GET("/items/:item_id", handler.GetItemById)
 	appEndpoints.POST("/items", handler.PostItem)
