@@ -26,12 +26,12 @@ func (*webAPI) Start() {
 	port := os.Getenv("PORT")
 
 	if port == "" {
-		port = ":8080"
+		port = "8080"
 	}
 
 	configureLogFormatter()
 
-	if err := router.Run(port); err != nil {
+	if err := router.Run(":" + port); err != nil {
 		log.Errorf(fmt.Sprintf("error running server: %v", err))
 	}
 
