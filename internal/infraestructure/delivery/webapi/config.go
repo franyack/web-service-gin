@@ -9,12 +9,10 @@ import (
 	"os"
 )
 
-// Creates a new WebAPI strategy.
+// New Creates a new WebAPI strategy.
 func New() delivery.Strategy {
 	return &webAPI{}
 }
-
-const URLBase = "/web-service-gin/"
 
 type webAPI struct{}
 
@@ -51,7 +49,7 @@ func configureApplicationMiddleware(applicationGroup *gin.RouterGroup) {
 
 func configureRoutes(router *gin.Engine) {
 	healthyCheckGroup := router.Group("/ping")
-	applicationGroup := router.Group(URLBase)
+	applicationGroup := router.Group("/")
 
 	configureApplicationMiddleware(applicationGroup)
 
