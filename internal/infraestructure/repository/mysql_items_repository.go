@@ -14,22 +14,20 @@ import (
 
 func NewMySqlItemsRepository() gateway.ItemsRepository {
 
-	driver := "TBD"
-	user := "TBD"
-	password := "TBD"
-	name := "TBD"
-	tcp := "TBD"
+	dbUsername := "TBD"
+	dbPassword := "TBD"
+	dbHost := "TBD"
+	dbName := "TBD"
 
 	port := os.Getenv("PORT")
 	if port == "" {
-		driver = "mysql"
-		user = "root"
-		password = ""
-		name = "web-service-gin"
-		tcp = "@tcp(127.0.0.1)/"
+		dbUsername = "root"
+		dbPassword = ""
+		dbHost = "127.0.0.1"
+		dbName = "web-service-gin"
 	}
-
-	database, err := sql.Open(driver, user+":"+password+tcp+name)
+	connectionString := fmt.Sprintf("%s:%s@tcp(%s)/%s?charset=utf8", dbUsername, dbPassword, dbHost, dbName)
+	database, err := sql.Open("mysql", connectionString)
 	if err != nil {
 		panic(err.Error())
 	}

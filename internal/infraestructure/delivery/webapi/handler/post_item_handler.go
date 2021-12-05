@@ -2,7 +2,9 @@ package handler
 
 import (
 	"example/web-service-gin/internal/business/domain"
+	"example/web-service-gin/internal/business/gateway"
 	"example/web-service-gin/internal/business/usecase"
+	"example/web-service-gin/internal/infraestructure/delivery/webapi/utils"
 	"example/web-service-gin/internal/infraestructure/delivery/webapi/utils/apierrors"
 	"fmt"
 	"github.com/gin-gonic/gin"
@@ -11,6 +13,21 @@ import (
 )
 
 func PostItem(c *gin.Context) {
+	tokenAuth, errTokenAuth := utils.ExtractTokenMetadata(c.Request)
+	if errTokenAuth != nil {
+		apiError := apierrors.NewUnauthorizedApiError("unauthorized")
+		c.AbortWithStatusJSON(apiError.Status(), apiError)
+		return
+	}
+	authRepository := gateway.NewAuthRepository()
+	userId, errFetchAuth := authRepository.FetchAuth(tokenAuth)
+	if errFetchAuth != nil {
+		apiError := apierrors.NewUnauthorizedApiError("unauthorized")
+		c.AbortWithStatusJSON(apiError.Status(), apiError)
+		return
+	}
+
+	log.Info(fmt.Sprintf("the userID is: %v", userId))
 	var item domain.Item
 
 	if err := c.ShouldBindJSON(&item); err != nil {
