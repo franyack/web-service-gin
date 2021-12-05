@@ -6,20 +6,14 @@ import (
 )
 
 type Item struct {
-	ID          string     `json:"id"`
-	SiteID      string     `json:"site_id"`
+	ID          int        `json:"id,omitempty"`
 	Title       string     `json:"title"`
 	Price       float32    `json:"price"`
 	DateCreated *time.Time `json:"date_created,omitempty"`
+	DateUpdated *time.Time `json:"date_updated,omitempty"`
 }
 
 func (item *Item) CheckItem() error {
-	if item.ID == "" {
-		return fmt.Errorf("the field 'id' is empty or doesn't exists")
-	}
-	if item.SiteID == "" {
-		return fmt.Errorf("the field 'site_id' is empty or doesn't exists")
-	}
 
 	if item.Title == "" {
 		return fmt.Errorf("the field 'title' is empty or doesn't exists")
